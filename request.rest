@@ -1,0 +1,28 @@
+
+POST http://localhost:3000/api/hello
+Content-Type: application/json
+
+
+###
+
+### 
+
+POST http://localhost:3000/api/upload
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="test.xlsx"
+Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+
+< /Users/zawhlaingbwar/works/dud/smart-pos/Milestone 3 Winners.xlsx
+--WebAppBoundary--
+
+###
+
+POST http://localhost:3000/api/generate
+Content-Type: application/json
+
+{
+    "filename": "test.xlsx",
+    "size": 100
+}
