@@ -20,7 +20,7 @@ function App() {
     const formData = new FormData();
     formData.append('file', file);
     console.log("upload", file)
-    const response = await fetch('http://localhost:3000/api/upload', {
+    const response = await fetch('/api/upload', {
       method: 'POST',
       body: formData
     });
@@ -39,7 +39,7 @@ function App() {
 
   const handleUpload = async () => {
     setIsLoading(true);
-    const response = await fetch('http://localhost:3000/api/generate', {
+    const response = await fetch('/api/generate', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
