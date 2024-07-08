@@ -1,0 +1,34 @@
+name: Deploy Project to Server
+
+on: [push]
+
+jobs:
+  ssh-job:
+    runs-on: ubuntu-latest
+    env:
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+          SSH_USERNAME: ${{ secrets.SERVER_USER }}
+          SSH_HOST: ${{ secrets.SERVER_HOST }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      
+
+      - name: Set up SSH
+        
+
+        run: |
+          echo "$SSH_KEY" > ssh_key
+          chmod 600 ssh_key
+
+      - name: SSH into server and run commands
+        run: |
+          rsync -avz -e "ssh -i ssh_key -o StrictHostKeyChecking=no" . ${SSH_USERNAME}@${SSH_HOST}:/home/ubuntu/pmk
+          ssh -i ssh_key -o StrictHostKeyChecking=no ${SSH_USERNAME}@${SSH_HOST} << 'EOF'
+          #cd /path/to/remote/directory
+          #pm2 restart excel-random
+          # Add any commands you want to run on the server here, for example:
+          # npm install
+          # npm start
+          EOF
